@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Alacran Studios</title>
+
+    <style>
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('/fonts/HVD Fonts - BrandonText-Regular.otf') format('opentype');
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('/fonts/HVD Fonts - BrandonText-Light.otf') format('opentype');
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('/fonts/HVD Fonts - BrandonText-Medium.otf') format('opentype');
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('/fonts/HVD Fonts - BrandonText-Bold.otf') format('opentype');
+            font-weight: 700;
+        }
+
+        :root {
+            --bg-black: #050609;
+            --bg-deep: #071020;
+            --white: #ffffff;
+            --copper: #cb6b37;
+            --sand: #efb173;
+            --sand-light: #f6c796;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Brandon Text', sans-serif;
+            color: var(--white);
+            overflow-x: hidden;
+            background: var(--bg-black);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            padding: 20px 5.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(5,6,9,0.68), rgba(5,6,9,0));
+        }
+
+        .logo img {
+            width: 102px;
+            height: auto;
+        }
+
+        .nav-area {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+            .nav a {
+                font-size: 11px;
+                font-weight: 400;
+                text-transform: uppercase;
+                letter-spacing: 0.02em;
+                color: rgba(255,255,255,0.92);
+                transition: color 0.25s ease;
+            }
+
+                .nav a:hover,
+                .nav a.is-current {
+                    color: var(--sand-light);
+                }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 190px;
+            padding: 14px 0;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(5,6,9,0.88);
+            border: 1px solid rgba(239,177,115,0.28);
+            border-radius: 18px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+            .dropdown-menu a {
+                display: block;
+                padding: 9px 18px;
+                font-size: 10px;
+                white-space: nowrap;
+                color: rgba(255,255,255,0.82);
+            }
+
+                .dropdown-menu a:hover {
+                    color: var(--sand-light);
+                    background: rgba(239,177,115,0.06);
+                }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .search-button {
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+            .search-button svg {
+                width: 15px;
+                height: 15px;
+            }
+
+        /* TITLES */
+
+        .large-title {
+            font-size: clamp(30px, 3.45vw, 56px);
+            line-height: 0.96;
+            font-weight: 400;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+            .large-title span {
+                display: block;
+            }
+
+        .accent-word {
+            font-style: normal;
+            color: transparent;
+            background: linear-gradient( 110deg, rgba(255,255,255,0.84) 0%, var(--sand-light) 28%, var(--copper) 48%, var(--sand-light) 68%, rgba(255,255,255,0.88) 100% );
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerWord 7s ease-in-out infinite;
+        }
+
+        @keyframes shimmerWord {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* CONTACT */
+
+        .contact-page {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #050609;
+        }
+
+        .contact-bg-media {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+            .contact-bg-media img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.62;
+                filter: grayscale(0.06) blur(2px) brightness(0.70) contrast(1.04);
+                transform: scale(1.03);
+            }
+
+            .contact-bg-media::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at 50% 34%, rgba(239,177,115,0.10), transparent 30%), radial-gradient(circle at 72% 28%, rgba(191,207,228,0.06), transparent 24%), linear-gradient(90deg, rgba(5,6,9,0.62) 0%, rgba(5,6,9,0.26) 50%, rgba(5,6,9,0.62) 100%), linear-gradient(180deg, rgba(5,6,9,0.48) 0%, rgba(7,15,34,0.22) 42%, rgba(5,6,9,0.78) 100%);
+            }
+
+        .contact-page::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(180deg, #050609 0%, rgba(5,6,9,0) 22%, rgba(5,6,9,0.20) 78%, #050609 100%);
+        }
+
+        .contact-hero {
+            position: relative;
+            z-index: 3;
+            min-height: calc(100vh - 85px);
+            padding: 145px 5.5vw 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-inner {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-copy-wrap {
+            max-width: 680px;
+            margin: 0 auto 38px;
+        }
+
+            .contact-copy-wrap .large-title {
+                margin-bottom: 24px;
+            }
+
+        .contact-copy {
+            max-width: 540px;
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 300;
+            color: rgba(255,255,255,0.80);
+        }
+
+        .contact-info {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .contact-info-item {
+            min-height: 118px;
+            padding: 20px 18px;
+            border: 1px solid rgba(203,107,55,0.24);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 82% 18%, rgba(239,177,115,0.10), transparent 26%), linear-gradient(180deg, rgba(10,22,54,0.62), rgba(8,18,46,0.76));
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 55px rgba(0,0,0,0.26);
+        }
+
+            .contact-info-item span {
+                display: block;
+                margin-bottom: 8px;
+                font-size: 10px;
+                line-height: 1;
+                letter-spacing: 0.13em;
+                text-transform: uppercase;
+                color: rgba(246,199,150,0.84);
+            }
+
+            .contact-info-item p,
+            .contact-info-item a {
+                font-size: 15px;
+                line-height: 1.45;
+                font-weight: 300;
+                color: rgba(255,255,255,0.90);
+            }
+
+            .contact-info-item a {
+                transition: color 0.25s ease;
+            }
+
+                .contact-info-item a:hover {
+                    color: var(--sand-light);
+                }
+
+        .team-accordion {
+            width: 100%;
+            margin-top: 14px;
+            border: 1px solid rgba(203,107,55,0.24);
+            border-radius: 18px;
+            overflow: hidden;
+            background: radial-gradient(circle at 82% 18%, rgba(239,177,115,0.10), transparent 26%), linear-gradient(180deg, rgba(10,22,54,0.62), rgba(8,18,46,0.76));
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 55px rgba(0,0,0,0.26);
+        }
+
+        .team-accordion-button {
+            width: 100%;
+            min-height: 58px;
+            padding: 0 22px;
+            border: 0;
+            background: transparent;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+            .team-accordion-button > span:first-child {
+                font-size: 11px;
+                line-height: 1;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: rgba(255,255,255,0.84);
+            }
+
+        .team-accordion-icon {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            flex: 0 0 16px;
+        }
+
+            .team-accordion-icon::before,
+            .team-accordion-icon::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 14px;
+                height: 1px;
+                background: var(--sand-light);
+                transform: translate(-50%, -50%);
+                transition: transform 0.28s ease, opacity 0.28s ease;
+            }
+
+            .team-accordion-icon::after {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+
+        .team-accordion.is-open .team-accordion-icon::after {
+            opacity: 0;
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        .team-accordion-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .team-accordion-content {
+            padding: 0 22px 20px;
+        }
+
+        .team-row {
+            display: grid;
+            grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.2fr);
+            gap: 22px;
+            align-items: baseline;
+            padding: 16px 0;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            text-align: left;
+        }
+
+        .team-role {
+            font-size: 10px;
+            line-height: 1.25;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: rgba(246,199,150,0.80);
+        }
+
+        .team-name {
+            font-size: 17px;
+            line-height: 1.3;
+            font-weight: 300;
+            color: rgba(255,255,255,0.88);
+        }
+
+            .team-name span {
+                color: rgba(255,255,255,0.48);
+            }
+
+        /* FOOTER */
+
+        .footer {
+            padding: 26px 5.5vw 34px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 26px;
+            color: rgba(255,255,255,0.50);
+            font-size: 12px;
+            font-weight: 300;
+            background: rgba(5,6,9,0.96);
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+            .footer-left img {
+                width: 24px;
+                height: 24px;
+                object-fit: contain;
+            }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer a:hover {
+            color: var(--sand-light);
+        }
+
+        @media (max-width: 760px) {
+            .header {
+                padding: 16px 22px;
+            }
+
+            .logo img {
+                width: 90px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .contact-hero {
+                min-height: auto;
+                padding: 125px 24px 82px;
+            }
+
+            .large-title {
+                font-size: 34px;
+            }
+
+            .contact-copy {
+                font-size: 15px;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-item {
+                min-height: 100px;
+                padding: 18px;
+                border-radius: 16px;
+            }
+
+            .team-accordion {
+                border-radius: 16px;
+            }
+
+            .team-accordion-button {
+                padding: 0 18px;
+            }
+
+            .team-accordion-content {
+                padding: 0 18px 18px;
+            }
+
+            .team-row {
+                grid-template-columns: 1fr;
+                gap: 7px;
+                padding: 15px 0;
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <header class="header">
+            <a href="index.html" class="logo">
+                <img src="/logos/logo-cobre.png" alt="Alacran Studios">
+            </a>
+
+            <div class="nav-area">
+                <nav class="nav">
+                    <div class="nav-item has-dropdown">
+                        <a href="studio-experience.html" class="is-current">Studio Experience</a>
+
+                        <div class="dropdown-menu">
+                            <a href="#recording-studio">Recording Studio</a>
+                            <a href="#ink-room">Ink Room</a>
+                            <a href="#studio-gallery">Studio Gallery</a>
+                            <a href="#floorplan">Floorplan</a>
+                            <a href="#tour">3D Tour</a>
+                        </div>
+                    </div>
+
+                    <a href="alacran-productions.html">Alacran Productions</a>
+                    <a href="clients.html">Clients</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+
+                <button class="search-button" aria-label="Search">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"></circle>
+                        <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="contact-page">
+
+            <div class="contact-bg-media">
+                <img src="/imgs/mezclas.jpg" alt="Alacran Studios">
+            </div>
+
+            <section class="contact-hero">
+                <div class="contact-inner">
+
+                    <div class="contact-copy-wrap">
+                        <h1 class="large-title">
+                            <span>Let&apos;s</span>
+                            <span><em class="accent-word">Create</em> Together.</span>
+                        </h1>
+
+                        <p class="contact-copy">
+                            For bookings, productions, partnerships or general enquiries,
+                            contact Alacran Studios directly.
+                        </p>
+                    </div>
+
+                    <div class="contact-info">
+
+                        <div class="contact-info-item">
+                            <span>Studio</span>
+                            <p>
+                                555 Washington Ave #220<br>
+                                Miami Beach, FL 33139
+                            </p>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <span>Phone</span>
+                            <a href="tel:+13058747980">+1 (305) 874-7980</a>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <span>Email</span>
+                            <a href="mailto:hello@alacranstudios.com">
+                                hello@alacranstudios.com
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="team-accordion" id="teamAccordion">
+
+                        <button class="team-accordion-button"
+                                type="button"
+                                aria-expanded="false"
+                                aria-controls="teamAccordionPanel">
+                            <span>Meet the team</span>
+                            <span class="team-accordion-icon" aria-hidden="true"></span>
+                        </button>
+
+                        <div class="team-accordion-panel" id="teamAccordionPanel">
+                            <div class="team-accordion-content">
+
+                                <div class="team-row">
+                                    <div class="team-role">Studio Director</div>
+                                    <div class="team-name">
+                                        Name Surname <span>— Management</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-row">
+                                    <div class="team-role">Head Engineer</div>
+                                    <div class="team-name">
+                                        Name Surname <span>— Recording & Mixing</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-row">
+                                    <div class="team-role">Production</div>
+                                    <div class="team-name">
+                                        Name Surname <span>— Projects & Partnerships</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-row">
+                                    <div class="team-role">Bookings</div>
+                                    <div class="team-name">
+                                        Name Surname <span>— Sessions & Availability</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <div class="footer-left">
+                <img src="/logos/icono-cobre.png" alt="Alacran icon">
+                <span>© 2026 Alacran Studios. All rights reserved.</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+                <a href="/clients/">Clients</a>
+                <a href="#">Miami Beach</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordion = document.getElementById('teamAccordion');
+
+            if (!accordion) {
+                return;
+            }
+
+            const button = accordion.querySelector('.team-accordion-button');
+            const panel = accordion.querySelector('.team-accordion-panel');
+
+            button.addEventListener('click', function () {
+                const isOpen = accordion.classList.toggle('is-open');
+
+                button.setAttribute('aria-expanded', String(isOpen));
+
+                panel.style.maxHeight = isOpen
+                    ? panel.scrollHeight + 'px'
+                    : '0px';
+            });
+
+            window.addEventListener('resize', function () {
+                if (accordion.classList.contains('is-open')) {
+                    panel.style.maxHeight = panel.scrollHeight + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
