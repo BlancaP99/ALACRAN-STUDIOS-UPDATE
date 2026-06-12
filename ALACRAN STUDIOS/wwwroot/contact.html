@@ -294,28 +294,31 @@
 
         .contact-info {
             width: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
+            max-width: 560px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
         }
 
         .contact-info-item {
-            min-height: 118px;
-            padding: 20px 18px;
-            border: 1px solid rgba(203,107,55,0.24);
-            border-radius: 18px;
+            width: 100%;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at 82% 18%, rgba(239,177,115,0.10), transparent 26%), linear-gradient(180deg, rgba(10,22,54,0.62), rgba(8,18,46,0.76));
-            backdrop-filter: blur(18px);
-            box-shadow: 0 20px 55px rgba(0,0,0,0.26);
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
         }
 
             .contact-info-item span {
                 display: block;
-                margin-bottom: 8px;
+                margin-bottom: 7px;
                 font-size: 10px;
                 line-height: 1;
                 letter-spacing: 0.13em;
@@ -325,10 +328,11 @@
 
             .contact-info-item p,
             .contact-info-item a {
-                font-size: 15px;
-                line-height: 1.45;
+                font-size: 17px;
+                line-height: 1.5;
                 font-weight: 300;
-                color: rgba(255,255,255,0.90);
+                color: rgba(255,255,255,0.92);
+                text-align: center;
             }
 
             .contact-info-item a {
@@ -338,108 +342,6 @@
                 .contact-info-item a:hover {
                     color: var(--sand-light);
                 }
-
-        .team-accordion {
-            width: 100%;
-            margin-top: 14px;
-            border: 1px solid rgba(203,107,55,0.24);
-            border-radius: 18px;
-            overflow: hidden;
-            background: radial-gradient(circle at 82% 18%, rgba(239,177,115,0.10), transparent 26%), linear-gradient(180deg, rgba(10,22,54,0.62), rgba(8,18,46,0.76));
-            backdrop-filter: blur(18px);
-            box-shadow: 0 20px 55px rgba(0,0,0,0.26);
-        }
-
-        .team-accordion-button {
-            width: 100%;
-            min-height: 58px;
-            padding: 0 22px;
-            border: 0;
-            background: transparent;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            cursor: pointer;
-            text-align: left;
-        }
-
-            .team-accordion-button > span:first-child {
-                font-size: 11px;
-                line-height: 1;
-                letter-spacing: 0.12em;
-                text-transform: uppercase;
-                color: rgba(255,255,255,0.84);
-            }
-
-        .team-accordion-icon {
-            position: relative;
-            width: 16px;
-            height: 16px;
-            flex: 0 0 16px;
-        }
-
-            .team-accordion-icon::before,
-            .team-accordion-icon::after {
-                content: "";
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                width: 14px;
-                height: 1px;
-                background: var(--sand-light);
-                transform: translate(-50%, -50%);
-                transition: transform 0.28s ease, opacity 0.28s ease;
-            }
-
-            .team-accordion-icon::after {
-                transform: translate(-50%, -50%) rotate(90deg);
-            }
-
-        .team-accordion.is-open .team-accordion-icon::after {
-            opacity: 0;
-            transform: translate(-50%, -50%) rotate(0deg);
-        }
-
-        .team-accordion-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .team-accordion-content {
-            padding: 0 22px 20px;
-        }
-
-        .team-row {
-            display: grid;
-            grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.2fr);
-            gap: 22px;
-            align-items: baseline;
-            padding: 16px 0;
-            border-top: 1px solid rgba(255,255,255,0.12);
-            text-align: left;
-        }
-
-        .team-role {
-            font-size: 10px;
-            line-height: 1.25;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-            color: rgba(246,199,150,0.80);
-        }
-
-        .team-name {
-            font-size: 17px;
-            line-height: 1.3;
-            font-weight: 300;
-            color: rgba(255,255,255,0.88);
-        }
-
-            .team-name span {
-                color: rgba(255,255,255,0.48);
-            }
 
         /* FOOTER */
 
@@ -505,31 +407,12 @@
             }
 
             .contact-info {
-                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
-            .contact-info-item {
-                min-height: 100px;
-                padding: 18px;
-                border-radius: 16px;
-            }
-
-            .team-accordion {
-                border-radius: 16px;
-            }
-
-            .team-accordion-button {
-                padding: 0 18px;
-            }
-
-            .team-accordion-content {
-                padding: 0 18px 18px;
-            }
-
-            .team-row {
-                grid-template-columns: 1fr;
-                gap: 7px;
-                padding: 15px 0;
+            .contact-info-item p,
+            .contact-info-item a {
+                font-size: 16px;
             }
 
             .footer {
@@ -543,6 +426,7 @@
 <body>
     <div class="page">
 
+        <!-- HEADER -->
         <header class="header">
             <a href="index.html" class="logo">
                 <img src="/logos/logo-cobre.png" alt="Alacran Studios">
@@ -550,13 +434,13 @@
 
             <div class="nav-area">
                 <nav class="nav">
+                    <!-- CHANGED: Studio Experience → The Studios; removed Studio Gallery from dropdown -->
                     <div class="nav-item has-dropdown">
-                        <a href="studio-experience.html" class="is-current">Studio Experience</a>
+                        <a href="studio-experience.html" class="is-current">The Studios</a>
 
                         <div class="dropdown-menu">
                             <a href="#recording-studio">Recording Studio</a>
                             <a href="#ink-room">Ink Room</a>
-                            <a href="#studio-gallery">Studio Gallery</a>
                             <a href="#floorplan">Floorplan</a>
                             <a href="#tour">3D Tour</a>
                         </div>
@@ -601,11 +485,10 @@
                     <div class="contact-info">
 
                         <div class="contact-info-item">
-                            <span>Studio</span>
-                            <p>
-                                555 Washington Ave #220<br>
-                                Miami Beach, FL 33139
-                            </p>
+                            <span>Email</span>
+                            <a href="mailto:hello@alacranstudios.com">
+                                hello@alacranstudios.com
+                            </a>
                         </div>
 
                         <div class="contact-info-item">
@@ -614,108 +497,37 @@
                         </div>
 
                         <div class="contact-info-item">
-                            <span>Email</span>
-                            <a href="mailto:hello@alacranstudios.com">
-                                hello@alacranstudios.com
-                            </a>
+                            <span>Studio</span>
+                            <p>
+                                555 Washington Ave #220<br>
+                                Miami Beach, FL 33139
+                            </p>
                         </div>
 
                     </div>
-
-                    <div class="team-accordion" id="teamAccordion">
-
-                        <button class="team-accordion-button"
-                                type="button"
-                                aria-expanded="false"
-                                aria-controls="teamAccordionPanel">
-                            <span>Meet the team</span>
-                            <span class="team-accordion-icon" aria-hidden="true"></span>
-                        </button>
-
-                        <div class="team-accordion-panel" id="teamAccordionPanel">
-                            <div class="team-accordion-content">
-
-                                <div class="team-row">
-                                    <div class="team-role">Studio Director</div>
-                                    <div class="team-name">
-                                        Name Surname <span>— Management</span>
-                                    </div>
-                                </div>
-
-                                <div class="team-row">
-                                    <div class="team-role">Head Engineer</div>
-                                    <div class="team-name">
-                                        Name Surname <span>— Recording & Mixing</span>
-                                    </div>
-                                </div>
-
-                                <div class="team-row">
-                                    <div class="team-role">Production</div>
-                                    <div class="team-name">
-                                        Name Surname <span>— Projects & Partnerships</span>
-                                    </div>
-                                </div>
-
-                                <div class="team-row">
-                                    <div class="team-role">Bookings</div>
-                                    <div class="team-name">
-                                        Name Surname <span>— Sessions & Availability</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
                 </div>
-            </section>
 
-        </main>
+    </div>
+    </section>
 
-        <footer class="footer">
-            <div class="footer-left">
-                <img src="/logos/icono-cobre.png" alt="Alacran icon">
-                <span>© 2026 Alacran Studios. All rights reserved.</span>
-            </div>
+    </main>
 
-            <div class="footer-links">
-                <a href="#">Instagram</a>
-                <a href="#">YouTube</a>
-                <a href="/clients/">Clients</a>
-                <a href="#">Miami Beach</a>
-            </div>
-        </footer>
+    <footer class="footer">
+        <div class="footer-left">
+            <img src="/logos/icono-cobre.png" alt="Alacran icon">
+            <span>© 2026 Alacran Studios. All rights reserved.</span>
+        </div>
+
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="/clients/">Clients</a>
+            <a href="#">Miami Beach</a>
+        </div>
+    </footer>
 
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const accordion = document.getElementById('teamAccordion');
 
-            if (!accordion) {
-                return;
-            }
-
-            const button = accordion.querySelector('.team-accordion-button');
-            const panel = accordion.querySelector('.team-accordion-panel');
-
-            button.addEventListener('click', function () {
-                const isOpen = accordion.classList.toggle('is-open');
-
-                button.setAttribute('aria-expanded', String(isOpen));
-
-                panel.style.maxHeight = isOpen
-                    ? panel.scrollHeight + 'px'
-                    : '0px';
-            });
-
-            window.addEventListener('resize', function () {
-                if (accordion.classList.contains('is-open')) {
-                    panel.style.maxHeight = panel.scrollHeight + 'px';
-                }
-            });
-        });
-    </script>
 </body>
 </html>

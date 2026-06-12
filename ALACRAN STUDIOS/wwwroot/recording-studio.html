@@ -625,6 +625,7 @@
 <body>
     <div class="page">
 
+        <!-- HEADER -->
         <header class="header">
             <a href="index.html" class="logo">
                 <img src="/logos/logo-cobre.png" alt="Alacran Studios">
@@ -632,16 +633,15 @@
 
             <div class="nav-area">
                 <nav class="nav">
-
+                    <!-- CHANGED: Studio Experience → The Studios; removed Studio Gallery from dropdown -->
                     <div class="nav-item has-dropdown">
-                        <a href="studio-experience.html" class="is-current">Studio Experience</a>
+                        <a href="studio-experience.html" class="is-current">The Studios</a>
 
                         <div class="dropdown-menu">
-                            <a href="recording-studio.html" class="is-current">Recording Studio</a>
-                            <a href="ink-room.html">Ink Room</a>
-                            <a href="studio-gallery.html">Studio Gallery</a>
-                            <a href="floorplan.html">Floorplan</a>
-                            <a href="3d-tour.html">3D Tour</a>
+                            <a href="#recording-studio">Recording Studio</a>
+                            <a href="#ink-room">Ink Room</a>
+                            <a href="#floorplan">Floorplan</a>
+                            <a href="#tour">3D Tour</a>
                         </div>
                     </div>
 
@@ -651,7 +651,7 @@
                     <a href="contact.html">Contact</a>
                 </nav>
 
-                <button class="search-button" type="button" aria-label="Search">
+                <button class="search-button" aria-label="Search">
                     <svg viewBox="0 0 24 24" fill="none">
                         <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"></circle>
                         <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
