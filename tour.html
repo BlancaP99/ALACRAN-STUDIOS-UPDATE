@@ -1,1 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>3D Tour | Alacran Studios</title>
+
+    <style>
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Regular.otf') format('opentype');
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Light.otf') format('opentype');
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Medium.otf') format('opentype');
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Bold.otf') format('opentype');
+            font-weight: 700;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Black.otf') format('opentype');
+            font-weight: 900;
+        }
+
+        :root {
+            --bg-black: #050609;
+            --bg-deep: #071020;
+            --white: #ffffff;
+            --soft-white: rgba(255,255,255,0.86);
+            --muted-white: rgba(255,255,255,0.64);
+            --copper: #cb6b37;
+            --copper-light: #e0844f;
+            --sand: #efb173;
+            --sand-light: #f6c796;
+            --soft-blue: #bfcfe4;
+            --line-copper: rgba(203,107,55,0.44);
+            --shadow-big: 0 30px 90px rgba(0,0,0,0.34);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Brandon Text', sans-serif;
+            color: var(--white);
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 14% 8%, rgba(191,207,228,0.03), transparent 24%),
+                radial-gradient(circle at 86% 16%, rgba(239,177,115,0.04), transparent 26%),
+                linear-gradient(180deg, #050609 0%, #071020 42%, #050609 100%);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 5.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(5,6,9,0.78), rgba(5,6,9,0));
+        }
+
+        .logo img {
+            width: 102px;
+            height: auto;
+        }
+
+        .nav-area {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav a {
+            font-size: 11px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.92);
+            transition: color 0.25s ease;
+        }
+
+        .nav a:hover,
+        .nav a.is-current {
+            color: var(--sand-light);
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .has-dropdown > a {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            min-width: 190px;
+            padding: 14px 0;
+            background: rgba(5,6,9,0.92);
+            border: 1px solid rgba(239,177,115,0.28);
+            border-radius: 18px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 9px 18px;
+            font-size: 10px;
+            line-height: 1.2;
+            white-space: nowrap;
+            text-align: left;
+            color: rgba(255,255,255,0.82);
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--sand-light);
+            background: rgba(239,177,115,0.06);
+        }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .search-button {
+            width: 18px;
+            height: 18px;
+            border: 0;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .search-button svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        /* =========================================================
+           TOUR PAGE
+        ========================================================= */
+
+        .tour-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 104px 22px 22px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(239,177,115,0.08), transparent 34%),
+                linear-gradient(180deg, #050609 0%, #071020 48%, #050609 100%);
+            overflow: hidden;
+        }
+
+        .tour-page::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(90deg, rgba(5,6,9,0.74) 0%, rgba(5,6,9,0.08) 36%, rgba(5,6,9,0.08) 64%, rgba(5,6,9,0.74) 100%),
+                linear-gradient(180deg, rgba(5,6,9,0.50) 0%, rgba(5,6,9,0) 26%, rgba(5,6,9,0.44) 100%);
+            z-index: 1;
+        }
+
+        .tour-shell {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            min-height: calc(100vh - 126px);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(203,107,55,0.34);
+            border-radius: 34px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 28%, rgba(239,177,115,0.08), transparent 30%),
+                linear-gradient(180deg, rgba(10,22,54,0.72), rgba(5,8,18,0.94));
+            box-shadow: var(--shadow-big);
+        }
+
+        .tour-topbar {
+            position: relative;
+            z-index: 4;
+            min-height: 76px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(5,6,9,0.40);
+            backdrop-filter: blur(18px);
+        }
+
+        .tour-title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .tour-eyebrow {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(246,199,150,0.86);
+        }
+
+        .tour-title {
+            font-size: clamp(22px, 2.4vw, 38px);
+            line-height: 0.98;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -0.045em;
+        }
+
+        .tour-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .tour-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(239,177,115,0.62);
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.86);
+            cursor: pointer;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+
+        .tour-button:hover {
+            background: linear-gradient(135deg, var(--sand), var(--copper));
+            border-color: rgba(239,177,115,0.95);
+            color: #050505;
+            transform: translateY(-1px);
+        }
+
+        .tour-button svg {
+            width: 15px;
+            height: 15px;
+            margin-right: 8px;
+        }
+
+        .tour-viewer {
+            position: relative;
+            flex: 1;
+            min-height: calc(100vh - 202px);
+            overflow: hidden;
+            background: #050609;
+        }
+
+        .tour-iframe {
+            width: 100%;
+            height: 100%;
+            min-height: calc(100vh - 202px);
+            border: 0;
+            display: block;
+            background: #050609;
+        }
+
+        /* MOCKUP PLACEHOLDER */
+        .tour-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                linear-gradient(120deg, rgba(5,6,9,0.82), rgba(5,6,9,0.18), rgba(5,6,9,0.88)),
+                url('imgs/mezclas.jpg') center/cover no-repeat;
+        }
+
+        .tour-placeholder::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 44%, rgba(239,177,115,0.18), transparent 25%),
+                linear-gradient(180deg, rgba(5,6,9,0.12), rgba(5,6,9,0.70));
+        }
+
+        .tour-placeholder-content {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+            padding: 42px;
+            text-align: center;
+            border: 1px solid rgba(239,177,115,0.34);
+            border-radius: 34px;
+            background: rgba(5,6,9,0.44);
+            backdrop-filter: blur(18px);
+        }
+
+        .tour-placeholder-label {
+            margin-bottom: 16px;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(246,199,150,0.86);
+        }
+
+        .tour-placeholder-title {
+            margin-bottom: 18px;
+            font-size: clamp(34px, 5vw, 78px);
+            line-height: 0.92;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -0.065em;
+        }
+
+        .accent-word {
+            font-style: normal;
+            color: transparent;
+            background: linear-gradient(
+                110deg,
+                rgba(255,255,255,0.84) 0%,
+                var(--sand-light) 28%,
+                var(--copper) 48%,
+                var(--sand-light) 68%,
+                rgba(255,255,255,0.88) 100%
+            );
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerWord 7s ease-in-out infinite;
+            text-shadow:
+                0 0 16px rgba(203,107,55,0.12),
+                0 0 28px rgba(239,177,115,0.06);
+        }
+
+        @keyframes shimmerWord {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+
+            45% {
+                background-position: 100% 50%;
+                filter: brightness(1.18);
+            }
+
+            65% {
+                background-position: 72% 50%;
+                filter: brightness(1.06);
+            }
+        }
+
+        .tour-placeholder-text {
+            max-width: 580px;
+            margin: 0 auto 28px;
+            font-size: 17px;
+            line-height: 1.58;
+            font-weight: 300;
+            color: rgba(255,255,255,0.78);
+        }
+
+        .tour-play-button {
+            width: 92px;
+            height: 92px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 1px solid rgba(239,177,115,0.72);
+            background: rgba(5,6,9,0.42);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(14px);
+            transition: all 0.28s ease;
+        }
+
+        .tour-play-button:hover {
+            transform: scale(1.06);
+            background: linear-gradient(135deg, var(--sand), var(--copper));
+            color: #050505;
+            box-shadow: 0 0 38px rgba(239,177,115,0.24);
+        }
+
+        .tour-play-button svg {
+            width: 28px;
+            height: 28px;
+            margin-left: 4px;
+        }
+
+        .tour-note {
+            position: absolute;
+            left: 22px;
+            bottom: 22px;
+            z-index: 5;
+            max-width: 360px;
+            padding: 14px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(239,177,115,0.24);
+            background: rgba(5,6,9,0.48);
+            backdrop-filter: blur(16px);
+            color: rgba(255,255,255,0.66);
+            font-size: 12px;
+            line-height: 1.45;
+            font-weight: 300;
+        }
+
+        .tour-shell.is-fullscreen {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            min-height: 100vh;
+            border-radius: 0;
+            border: 0;
+        }
+
+        .tour-shell.is-fullscreen .tour-viewer,
+        .tour-shell.is-fullscreen .tour-iframe {
+            min-height: calc(100vh - 76px);
+        }
+
+        body.has-tour-fullscreen {
+            overflow: hidden;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            padding: 26px 5.5vw 34px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 26px;
+            color: rgba(255,255,255,0.50);
+            font-size: 12px;
+            font-weight: 300;
+            background: rgba(5,6,9,0.96);
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-left img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer a:hover {
+            color: var(--sand-light);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+            .header {
+                padding: 18px 28px;
+            }
+
+            .logo img {
+                width: 96px;
+            }
+
+            .nav {
+                gap: 20px;
+            }
+
+            .tour-page {
+                padding: 96px 14px 14px;
+            }
+
+            .tour-shell {
+                min-height: calc(100vh - 110px);
+                border-radius: 26px;
+            }
+
+            .tour-topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .tour-actions {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .tour-viewer,
+            .tour-iframe {
+                min-height: calc(100vh - 236px);
+            }
+
+            .tour-note {
+                display: none;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .header {
+                padding: 16px 22px;
+            }
+
+            .logo img {
+                width: 90px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .tour-page {
+                padding: 88px 12px 12px;
+            }
+
+            .tour-topbar {
+                padding: 16px;
+            }
+
+            .tour-button {
+                min-height: 36px;
+                padding: 0 13px;
+                font-size: 9px;
+            }
+
+            .tour-placeholder-content {
+                width: calc(100% - 32px);
+                padding: 30px 22px;
+                border-radius: 26px;
+            }
+
+            .tour-placeholder-text {
+                font-size: 15px;
+            }
+
+            .tour-play-button {
+                width: 78px;
+                height: 78px;
+            }
+
+            .tour-viewer,
+            .tour-iframe {
+                min-height: calc(100vh - 238px);
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- HEADER -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <img src="logos/logo-cobre.png" alt="Alacran Studios">
+            </a>
+
+            <div class="nav-area">
+                <nav class="nav">
+                    <div class="nav-item has-dropdown">
+                        <a href="studio-experience.html" class="is-current">The Studios</a>
+
+                        <div class="dropdown-menu">
+                            <a href="recording-studio.html">Recording Studio</a>
+                            <a href="ink-room.html">Ink Room</a>
+                            <a href="floorplan.html">Floorplan</a>
+                            <a href="tour.html">3D Tour</a>
+                        </div>
+                    </div>
+
+                    <a href="alacran-productions.html">Alacran Productions</a>
+                    <a href="clients.html">Clients</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+
+                <button class="search-button" aria-label="Search">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"></circle>
+                        <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="tour-page">
+
+            <section class="tour-shell" id="tourShell" aria-label="Alacran Studios 3D Tour">
+
+                <div class="tour-topbar">
+                    <div class="tour-title-area">
+                        <span class="tour-eyebrow">Virtual Studio Walkthrough</span>
+                        <h1 class="tour-title">Alacran Studios 3D Tour</h1>
+                    </div>
+
+                    <div class="tour-actions">
+                        <button class="tour-button" type="button" id="fullscreenButton">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            Fullscreen
+                        </button>
+
+                        <a href="studio-experience.html" class="tour-button">
+                            Back to Studios
+                        </a>
+
+                        <a href="contact.html" class="tour-button">
+                            Book a Visit
+                        </a>
+                    </div>
+                </div>
+
+                <div class="tour-viewer">
+
+                    <!-- 
+                        CUANDO TENGAS EL WIDGET REAL DEL 3D TOUR:
+                        1. Cambia el src del iframe por el enlace/embed real.
+                        2. Borra o comenta el bloque .tour-placeholder de abajo si el iframe ya carga bien.
+                    -->
+
+                    <iframe
+                        class="tour-iframe"
+                        id="tourIframe"
+                        src=""
+                        title="Alacran Studios 3D Tour"
+                        allowfullscreen
+                        allow="xr-spatial-tracking; gyroscope; accelerometer; fullscreen"
+                    ></iframe>
+
+                    <!-- MOCKUP VISUAL MIENTRAS NO HAY LINK REAL -->
+                    <div class="tour-placeholder" id="tourPlaceholder">
+                        <div class="tour-placeholder-content">
+                            <div class="tour-placeholder-label">Interactive 3D Experience</div>
+
+                            <h2 class="tour-placeholder-title">
+                                Explore the Studio <em class="accent-word">in 3D.</em>
+                            </h2>
+
+                            <p class="tour-placeholder-text">
+                                Move through the rooms, understand the layout and discover the studio before your session or production begins.
+                            </p>
+
+                            <button class="tour-play-button" type="button" id="mockPlayButton" aria-label="Launch 3D Tour">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M8 5L19 12L8 19V5Z" fill="currentColor"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tour-note">
+                        Use this space for the embedded virtual tour. The final widget can be added as an iframe, Matterport embed, Kuula embed, CloudPano embed or any interactive tour provider.
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-left">
+                <img src="logos/icono-cobre.png" alt="Alacran icon">
+                <span>© 2026 Alacran Studios. All rights reserved.</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+                <a href="clients.html">Clients</a>
+                <a href="#">Miami Beach</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tourShell = document.getElementById('tourShell');
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            const mockPlayButton = document.getElementById('mockPlayButton');
+            const tourPlaceholder = document.getElementById('tourPlaceholder');
+            const tourIframe = document.getElementById('tourIframe');
+
+            /*
+                PEGA AQUÍ EL LINK REAL DEL 3D TOUR CUANDO LO TENGAS.
+
+                Ejemplos:
+                const TOUR_EMBED_URL = "https://my.matterport.com/show/?m=XXXXXXXX";
+                const TOUR_EMBED_URL = "https://kuula.co/share/collection/XXXXXXX";
+                const TOUR_EMBED_URL = "https://app.cloudpano.com/tours/XXXXXXX";
+            */
+
+            const TOUR_EMBED_URL = "";
+
+            function loadTour() {
+                if (!TOUR_EMBED_URL) {
+                    return;
+                }
+
+                if (tourIframe) {
+                    tourIframe.src = TOUR_EMBED_URL;
+                }
+
+                if (tourPlaceholder) {
+                    tourPlaceholder.style.display = 'none';
+                }
+            }
+
+            function toggleFullscreenMockup() {
+                if (!tourShell) return;
+
+                tourShell.classList.toggle('is-fullscreen');
+                document.body.classList.toggle('has-tour-fullscreen');
+
+                if (fullscreenButton) {
+                    fullscreenButton.innerHTML = tourShell.classList.contains('is-fullscreen')
+                        ? `
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M9 3V9H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M15 3V9H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M9 21V15H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M15 21V15H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            Exit
+                        `
+                        : `
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            Fullscreen
+                        `;
+                }
+            }
+
+            if (fullscreenButton) {
+                fullscreenButton.addEventListener('click', function () {
+                    toggleFullscreenMockup();
+                });
+            }
+
+            if (mockPlayButton) {
+                mockPlayButton.addEventListener('click', function () {
+                    loadTour();
+
+                    if (!TOUR_EMBED_URL) {
+                        toggleFullscreenMockup();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && tourShell && tourShell.classList.contains('is-fullscreen')) {
+                    tourShell.classList.remove('is-fullscreen');
+                    document.body.classList.remove('has-tour-fullscreen');
+
+                    if (fullscreenButton) {
+                        fullscreenButton.innerHTML = `
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            Fullscreen
+                        `;
+                    }
+                }
+            });
+
+            loadTour();
+        });
+    </script>
+</body>
+</html>
