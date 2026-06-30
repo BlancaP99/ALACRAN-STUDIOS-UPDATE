@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Floorplan | Alacran Studios</title>
+
+    <style>
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Regular.otf') format('opentype');
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Light.otf') format('opentype');
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Medium.otf') format('opentype');
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Bold.otf') format('opentype');
+            font-weight: 700;
+        }
+
+        @font-face {
+            font-family: 'Brandon Text';
+            src: url('fonts/HVD Fonts - BrandonText-Black.otf') format('opentype');
+            font-weight: 900;
+        }
+
+        :root {
+            --bg-black: #050609;
+            --bg-deep: #071020;
+            --white: #ffffff;
+            --soft-white: rgba(255,255,255,0.86);
+            --muted-white: rgba(255,255,255,0.64);
+            --copper: #cb6b37;
+            --sand: #efb173;
+            --sand-light: #f6c796;
+            --shadow-big: 0 30px 90px rgba(0,0,0,0.34);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Brandon Text', sans-serif;
+            color: var(--white);
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 14% 8%, rgba(191,207,228,0.03), transparent 24%),
+                radial-gradient(circle at 86% 16%, rgba(239,177,115,0.04), transparent 26%),
+                linear-gradient(180deg, #050609 0%, #071020 42%, #050609 100%);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 5.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(5,6,9,0.78), rgba(5,6,9,0));
+        }
+
+        .logo img {
+            width: 102px;
+            height: auto;
+        }
+
+        .nav-area {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav a {
+            font-size: 11px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.92);
+            transition: color 0.25s ease;
+        }
+
+        .nav a:hover,
+        .nav a.is-current {
+            color: var(--sand-light);
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .has-dropdown > a {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            min-width: 190px;
+            padding: 14px 0;
+            background: rgba(5,6,9,0.92);
+            border: 1px solid rgba(239,177,115,0.28);
+            border-radius: 18px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 9px 18px;
+            font-size: 10px;
+            line-height: 1.2;
+            white-space: nowrap;
+            text-align: left;
+            color: rgba(255,255,255,0.82);
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--sand-light);
+            background: rgba(239,177,115,0.06);
+        }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .search-button {
+            width: 18px;
+            height: 18px;
+            border: 0;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .search-button svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        /* =========================================================
+           FLOORPLAN PAGE
+        ========================================================= */
+
+        .floorplan-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 145px 5.5vw 90px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(239,177,115,0.08), transparent 34%),
+                linear-gradient(180deg, #050609 0%, #071020 48%, #050609 100%);
+            overflow: hidden;
+        }
+
+        .floorplan-page::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(90deg, rgba(5,6,9,0.68) 0%, rgba(5,6,9,0.04) 36%, rgba(5,6,9,0.04) 64%, rgba(5,6,9,0.68) 100%),
+                linear-gradient(180deg, rgba(5,6,9,0.42) 0%, rgba(5,6,9,0) 26%, rgba(5,6,9,0.44) 100%);
+            z-index: 1;
+        }
+
+        .floorplan-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+        .floorplan-header {
+            max-width: 780px;
+            margin: 0 auto 54px;
+            text-align: center;
+        }
+
+        .floorplan-eyebrow {
+            margin-bottom: 16px;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(246,199,150,0.86);
+        }
+
+        .floorplan-title {
+            margin-bottom: 20px;
+            font-size: clamp(38px, 5vw, 82px);
+            line-height: 0.92;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -0.065em;
+        }
+
+        .accent-word {
+            font-style: normal;
+            color: transparent;
+            background: linear-gradient(
+                110deg,
+                rgba(255,255,255,0.84) 0%,
+                var(--sand-light) 28%,
+                var(--copper) 48%,
+                var(--sand-light) 68%,
+                rgba(255,255,255,0.88) 100%
+            );
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerWord 7s ease-in-out infinite;
+            text-shadow:
+                0 0 16px rgba(203,107,55,0.12),
+                0 0 28px rgba(239,177,115,0.06);
+        }
+
+        @keyframes shimmerWord {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+
+            45% {
+                background-position: 100% 50%;
+                filter: brightness(1.18);
+            }
+
+            65% {
+                background-position: 72% 50%;
+                filter: brightness(1.06);
+            }
+        }
+
+        .floorplan-intro {
+            max-width: 610px;
+            margin: 0 auto;
+            font-size: 17px;
+            line-height: 1.58;
+            font-weight: 300;
+            color: rgba(255,255,255,0.74);
+        }
+
+        .floorplan-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 34px;
+        }
+
+        .floorplan-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 34px;
+            border: 1px solid rgba(203,107,55,0.34);
+            background:
+                radial-gradient(circle at 82% 16%, rgba(239,177,115,0.08), transparent 26%),
+                linear-gradient(180deg, rgba(10,22,54,0.64), rgba(8,18,46,0.86));
+            box-shadow: var(--shadow-big);
+        }
+
+        .floorplan-item img {
+            width: 100%;
+            height: auto;
+            min-height: 520px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.02);
+            padding: 28px;
+            cursor: zoom-in;
+            transition: transform 0.45s ease, filter 0.45s ease;
+        }
+
+        .floorplan-item:hover img {
+            transform: scale(1.012);
+            filter: brightness(1.04);
+        }
+
+        .floorplan-caption {
+            position: absolute;
+            left: 22px;
+            bottom: 22px;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 15px;
+            border: 1px solid rgba(239,177,115,0.48);
+            border-radius: 999px;
+            background: rgba(5,6,9,0.54);
+            backdrop-filter: blur(14px);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.82);
+        }
+
+        /* =========================================================
+           IMAGE MODAL
+        ========================================================= */
+
+        .image-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            background: rgba(5,6,9,0.88);
+            backdrop-filter: blur(18px);
+        }
+
+        .image-modal.is-active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 96vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 22px;
+            border: 1px solid rgba(239,177,115,0.32);
+            background: rgba(255,255,255,0.04);
+            box-shadow: var(--shadow-big);
+        }
+
+        .modal-close {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(239,177,115,0.62);
+            background: rgba(5,6,9,0.62);
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(14px);
+            transition: all 0.25s ease;
+        }
+
+        .modal-close:hover {
+            background: linear-gradient(135deg, var(--sand), var(--copper));
+            color: #050505;
+            transform: translateY(-1px);
+        }
+
+        body.has-modal-open {
+            overflow: hidden;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            padding: 26px 5.5vw 34px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 26px;
+            color: rgba(255,255,255,0.50);
+            font-size: 12px;
+            font-weight: 300;
+            background: rgba(5,6,9,0.96);
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-left img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer a:hover {
+            color: var(--sand-light);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+            .header {
+                padding: 18px 28px;
+            }
+
+            .logo img {
+                width: 96px;
+            }
+
+            .nav {
+                gap: 20px;
+            }
+
+            .floorplan-page {
+                padding: 132px 28px 72px;
+            }
+
+            .floorplan-item {
+                border-radius: 28px;
+            }
+
+            .floorplan-item img {
+                min-height: 420px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .header {
+                padding: 16px 22px;
+            }
+
+            .logo img {
+                width: 90px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .floorplan-page {
+                padding: 118px 18px 58px;
+            }
+
+            .floorplan-header {
+                margin-bottom: 38px;
+            }
+
+            .floorplan-title {
+                font-size: 42px;
+            }
+
+            .floorplan-intro {
+                font-size: 15px;
+            }
+
+            .floorplan-gallery {
+                gap: 24px;
+            }
+
+            .floorplan-item {
+                border-radius: 24px;
+            }
+
+            .floorplan-item img {
+                min-height: 300px;
+                padding: 14px;
+            }
+
+            .floorplan-caption {
+                left: 14px;
+                bottom: 14px;
+                min-height: 30px;
+                padding: 0 12px;
+                font-size: 9px;
+            }
+
+            .image-modal {
+                padding: 18px;
+            }
+
+            .modal-close {
+                top: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- HEADER -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <img src="logos/logo-cobre.png" alt="Alacran Studios">
+            </a>
+
+            <div class="nav-area">
+                <nav class="nav">
+                    <div class="nav-item has-dropdown">
+                        <a href="studio-experience.html" class="is-current">The Studios</a>
+
+                        <div class="dropdown-menu">
+                            <a href="recording-studio.html">Recording Studio</a>
+                            <a href="ink-room.html">Ink Room</a>
+                            <a href="floorplan.html">Floorplan</a>
+                            <a href="tour.html">3D Tour</a>
+                        </div>
+                    </div>
+
+                    <a href="alacran-productions.html">Alacran Productions</a>
+                    <a href="clients.html">Clients</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+
+                <button class="search-button" aria-label="Search">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"></circle>
+                        <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="floorplan-page">
+
+            <div class="floorplan-inner">
+
+                <section class="floorplan-header">
+                    <div class="floorplan-eyebrow">Studio Layout</div>
+
+                    <h1 class="floorplan-title">
+                        Floor<span class="accent-word">plans.</span>
+                    </h1>
+
+                    <p class="floorplan-intro">
+                        A visual overview of the studio layout, including the recording areas, multimedia spaces and private production workflow.
+                    </p>
+                </section>
+
+                <section class="floorplan-gallery" aria-label="Alacran Studios floorplan gallery">
+
+                    <article class="floorplan-item">
+                        <img src="imgs/floorplan-01.jpg" alt="Alacran Studios floorplan 01" class="js-zoomable">
+                        <span class="floorplan-caption">Floorplan 01</span>
+                    </article>
+
+                    <article class="floorplan-item">
+                        <img src="imgs/floorplan-02.jpg" alt="Alacran Studios floorplan 02" class="js-zoomable">
+                        <span class="floorplan-caption">Floorplan 02</span>
+                    </article>
+
+                    <article class="floorplan-item">
+                        <img src="imgs/floorplan-03.jpg" alt="Alacran Studios floorplan 03" class="js-zoomable">
+                        <span class="floorplan-caption">Floorplan 03</span>
+                    </article>
+
+                    <article class="floorplan-item">
+                        <img src="imgs/floorplan-04.jpg" alt="Alacran Studios floorplan 04" class="js-zoomable">
+                        <span class="floorplan-caption">Floorplan 04</span>
+                    </article>
+
+                </section>
+
+            </div>
+
+        </main>
+
+        <!-- IMAGE MODAL -->
+        <div class="image-modal" id="imageModal" aria-hidden="true">
+            <button class="modal-close" type="button" id="modalClose" aria-label="Close image">
+                ✕
+            </button>
+
+            <img src="" alt="" id="modalImage">
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-left">
+                <img src="logos/icono-cobre.png" alt="Alacran icon">
+                <span>© 2026 Alacran Studios. All rights reserved.</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+                <a href="clients.html">Clients</a>
+                <a href="#">Miami Beach</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const zoomableImages = Array.from(document.querySelectorAll('.js-zoomable'));
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalClose = document.getElementById('modalClose');
+
+            function openModal(image) {
+                if (!imageModal || !modalImage) return;
+
+                modalImage.src = image.src;
+                modalImage.alt = image.alt || 'Floorplan image';
+
+                imageModal.classList.add('is-active');
+                imageModal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('has-modal-open');
+            }
+
+            function closeModal() {
+                if (!imageModal || !modalImage) return;
+
+                imageModal.classList.remove('is-active');
+                imageModal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('has-modal-open');
+
+                modalImage.src = '';
+                modalImage.alt = '';
+            }
+
+            zoomableImages.forEach(function (image) {
+                image.addEventListener('click', function () {
+                    openModal(image);
+                });
+            });
+
+            if (modalClose) {
+                modalClose.addEventListener('click', closeModal);
+            }
+
+            if (imageModal) {
+                imageModal.addEventListener('click', function (event) {
+                    if (event.target === imageModal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
