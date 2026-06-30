@@ -39,16 +39,10 @@
 
         :root {
             --bg-black: #050609;
-            --bg-deep: #071020;
             --white: #ffffff;
-            --soft-white: rgba(255,255,255,0.86);
-            --muted-white: rgba(255,255,255,0.64);
             --copper: #cb6b37;
-            --copper-light: #e0844f;
             --sand: #efb173;
             --sand-light: #f6c796;
-            --soft-blue: #bfcfe4;
-            --line-copper: rgba(203,107,55,0.44);
             --shadow-big: 0 30px 90px rgba(0,0,0,0.34);
         }
 
@@ -237,89 +231,14 @@
             border: 1px solid rgba(203,107,55,0.34);
             border-radius: 34px;
             overflow: hidden;
-            background:
-                radial-gradient(circle at 50% 28%, rgba(239,177,115,0.08), transparent 30%),
-                linear-gradient(180deg, rgba(10,22,54,0.72), rgba(5,8,18,0.94));
+            background: #050609;
             box-shadow: var(--shadow-big);
-        }
-
-        .tour-topbar {
-            position: relative;
-            z-index: 4;
-            min-height: 76px;
-            padding: 18px 22px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 22px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            background: rgba(5,6,9,0.40);
-            backdrop-filter: blur(18px);
-        }
-
-        .tour-title-area {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .tour-eyebrow {
-            font-size: 10px;
-            font-weight: 400;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: rgba(246,199,150,0.86);
-        }
-
-        .tour-title {
-            font-size: clamp(22px, 2.4vw, 38px);
-            line-height: 0.98;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: -0.045em;
-        }
-
-        .tour-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .tour-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 38px;
-            padding: 0 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(239,177,115,0.62);
-            background: rgba(255,255,255,0.05);
-            color: rgba(255,255,255,0.86);
-            cursor: pointer;
-            font-size: 10px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: all 0.25s ease;
-        }
-
-        .tour-button:hover {
-            background: linear-gradient(135deg, var(--sand), var(--copper));
-            border-color: rgba(239,177,115,0.95);
-            color: #050505;
-            transform: translateY(-1px);
-        }
-
-        .tour-button svg {
-            width: 15px;
-            height: 15px;
-            margin-right: 8px;
         }
 
         .tour-viewer {
             position: relative;
             flex: 1;
-            min-height: calc(100vh - 202px);
+            min-height: calc(100vh - 126px);
             overflow: hidden;
             background: #050609;
         }
@@ -327,13 +246,51 @@
         .tour-iframe {
             width: 100%;
             height: 100%;
-            min-height: calc(100vh - 202px);
+            min-height: calc(100vh - 126px);
             border: 0;
             display: block;
             background: #050609;
         }
 
+        /* FULLSCREEN BUTTON */
+
+        .tour-fullscreen-button {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            z-index: 20;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(239,177,115,0.62);
+            background: rgba(5,6,9,0.48);
+            color: rgba(255,255,255,0.86);
+            cursor: pointer;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            backdrop-filter: blur(16px);
+            transition: all 0.25s ease;
+        }
+
+        .tour-fullscreen-button:hover {
+            background: linear-gradient(135deg, var(--sand), var(--copper));
+            border-color: rgba(239,177,115,0.95);
+            color: #050505;
+            transform: translateY(-1px);
+        }
+
+        .tour-fullscreen-button svg {
+            width: 15px;
+            height: 15px;
+            margin-right: 8px;
+        }
+
         /* MOCKUP PLACEHOLDER */
+
         .tour-placeholder {
             position: absolute;
             inset: 0;
@@ -460,23 +417,6 @@
             margin-left: 4px;
         }
 
-        .tour-note {
-            position: absolute;
-            left: 22px;
-            bottom: 22px;
-            z-index: 5;
-            max-width: 360px;
-            padding: 14px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(239,177,115,0.24);
-            background: rgba(5,6,9,0.48);
-            backdrop-filter: blur(16px);
-            color: rgba(255,255,255,0.66);
-            font-size: 12px;
-            line-height: 1.45;
-            font-weight: 300;
-        }
-
         .tour-shell.is-fullscreen {
             position: fixed;
             inset: 0;
@@ -488,7 +428,7 @@
 
         .tour-shell.is-fullscreen .tour-viewer,
         .tour-shell.is-fullscreen .tour-iframe {
-            min-height: calc(100vh - 76px);
+            min-height: 100vh;
         }
 
         body.has-tour-fullscreen {
@@ -561,24 +501,9 @@
                 border-radius: 26px;
             }
 
-            .tour-topbar {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .tour-actions {
-                width: 100%;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-
             .tour-viewer,
             .tour-iframe {
-                min-height: calc(100vh - 236px);
-            }
-
-            .tour-note {
-                display: none;
+                min-height: calc(100vh - 110px);
             }
         }
 
@@ -599,11 +524,9 @@
                 padding: 88px 12px 12px;
             }
 
-            .tour-topbar {
-                padding: 16px;
-            }
-
-            .tour-button {
+            .tour-fullscreen-button {
+                top: 16px;
+                right: 16px;
                 min-height: 36px;
                 padding: 0 13px;
                 font-size: 9px;
@@ -622,11 +545,6 @@
             .tour-play-button {
                 width: 78px;
                 height: 78px;
-            }
-
-            .tour-viewer,
-            .tour-iframe {
-                min-height: calc(100vh - 238px);
             }
 
             .footer {
@@ -678,34 +596,17 @@
 
             <section class="tour-shell" id="tourShell" aria-label="Alacran Studios 3D Tour">
 
-                <div class="tour-topbar">
-                    <div class="tour-title-area">
-                        <span class="tour-eyebrow">Virtual Studio Walkthrough</span>
-                        <h1 class="tour-title">Alacran Studios 3D Tour</h1>
-                    </div>
-
-                    <div class="tour-actions">
-                        <button class="tour-button" type="button" id="fullscreenButton">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                            Fullscreen
-                        </button>
-
-                        <a href="studio-experience.html" class="tour-button">
-                            Back to Studios
-                        </a>
-
-                        <a href="contact.html" class="tour-button">
-                            Book a Visit
-                        </a>
-                    </div>
-                </div>
-
                 <div class="tour-viewer">
+
+                    <button class="tour-fullscreen-button" type="button" id="fullscreenButton">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        Fullscreen
+                    </button>
 
                     <!-- 
                         CUANDO TENGAS EL WIDGET REAL DEL 3D TOUR:
@@ -743,9 +644,6 @@
                         </div>
                     </div>
 
-                    <div class="tour-note">
-                        Use this space for the embedded virtual tour. The final widget can be added as an iframe, Matterport embed, Kuula embed, CloudPano embed or any interactive tour provider.
-                    </div>
                 </div>
 
             </section>
@@ -802,33 +700,37 @@
                 }
             }
 
+            function setFullscreenButton(isFullscreen) {
+                if (!fullscreenButton) return;
+
+                fullscreenButton.innerHTML = isFullscreen
+                    ? `
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M9 3V9H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M15 3V9H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M9 21V15H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M15 21V15H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        Exit
+                    `
+                    : `
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        Fullscreen
+                    `;
+            }
+
             function toggleFullscreenMockup() {
                 if (!tourShell) return;
 
                 tourShell.classList.toggle('is-fullscreen');
                 document.body.classList.toggle('has-tour-fullscreen');
 
-                if (fullscreenButton) {
-                    fullscreenButton.innerHTML = tourShell.classList.contains('is-fullscreen')
-                        ? `
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M9 3V9H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M15 3V9H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M9 21V15H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M15 21V15H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                            Exit
-                        `
-                        : `
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                            Fullscreen
-                        `;
-                }
+                setFullscreenButton(tourShell.classList.contains('is-fullscreen'));
             }
 
             if (fullscreenButton) {
@@ -851,18 +753,7 @@
                 if (event.key === 'Escape' && tourShell && tourShell.classList.contains('is-fullscreen')) {
                     tourShell.classList.remove('is-fullscreen');
                     document.body.classList.remove('has-tour-fullscreen');
-
-                    if (fullscreenButton) {
-                        fullscreenButton.innerHTML = `
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M8 3H3V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 3H21V8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M8 21H3V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 21H21V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                            Fullscreen
-                        `;
-                    }
+                    setFullscreenButton(false);
                 }
             });
 
