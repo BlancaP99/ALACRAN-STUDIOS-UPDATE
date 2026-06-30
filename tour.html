@@ -325,21 +325,26 @@
         }
 
         .tour-placeholder-label {
-            margin-bottom: 16px;
+            margin-bottom: 15px;
             font-size: 10px;
+            line-height: 1.2;
             font-weight: 400;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.17em;
             text-transform: uppercase;
-            color: rgba(246,199,150,0.86);
+            color: rgba(246,199,150,0.80);
         }
 
         .tour-placeholder-title {
-            margin-bottom: 18px;
-            font-size: clamp(34px, 5vw, 78px);
-            line-height: 0.92;
+            margin-bottom: 22px;
+            font-size: clamp(30px, 3.45vw, 56px);
+            line-height: 0.96;
             font-weight: 400;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            letter-spacing: -0.065em;
+        }
+
+        .tour-placeholder-title span {
+            display: block;
         }
 
         .accent-word {
@@ -382,10 +387,10 @@
         .tour-placeholder-text {
             max-width: 580px;
             margin: 0 auto 28px;
-            font-size: 17px;
-            line-height: 1.58;
+            font-size: 15px;
+            line-height: 1.65;
             font-weight: 300;
-            color: rgba(255,255,255,0.78);
+            color: rgba(255,255,255,0.66);
         }
 
         .tour-play-button {
@@ -538,8 +543,12 @@
                 border-radius: 26px;
             }
 
+            .tour-placeholder-title {
+                font-size: 34px;
+            }
+
             .tour-placeholder-text {
-                font-size: 15px;
+                font-size: 14px;
             }
 
             .tour-play-button {
@@ -629,7 +638,8 @@
                             <div class="tour-placeholder-label">Interactive 3D Experience</div>
 
                             <h2 class="tour-placeholder-title">
-                                Explore the Studio <em class="accent-word">in 3D.</em>
+                                <span>Explore the Studio</span>
+                                <span><em class="accent-word">in 3D.</em></span>
                             </h2>
 
                             <p class="tour-placeholder-text">
