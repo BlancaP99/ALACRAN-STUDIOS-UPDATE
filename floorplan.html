@@ -38,12 +38,11 @@
         }
 
         :root {
-            --bg-black: #050609;
-            --bg-deep: #071020;
+            --black: #050609;
+            --deep-blue: #071020;
             --white: #ffffff;
-            --soft-white: rgba(255,255,255,0.86);
-            --muted-white: rgba(255,255,255,0.64);
             --copper: #cb6b37;
+            --copper-light: #e0844f;
             --sand: #efb173;
             --sand-light: #f6c796;
             --shadow-big: 0 30px 90px rgba(0,0,0,0.34);
@@ -66,12 +65,12 @@
             background:
                 radial-gradient(circle at 14% 8%, rgba(191,207,228,0.03), transparent 24%),
                 radial-gradient(circle at 86% 16%, rgba(239,177,115,0.04), transparent 26%),
-                linear-gradient(180deg, #050609 0%, #071020 42%, #050609 100%);
+                linear-gradient(180deg, #050609 0%, #071020 36%, #060d1b 72%, #050609 100%);
         }
 
         a {
-            text-decoration: none;
             color: inherit;
+            text-decoration: none;
         }
 
         img {
@@ -80,12 +79,16 @@
         }
 
         button {
-            font: inherit;
+            font-family: inherit;
         }
 
         .page {
             width: 100%;
             min-height: 100vh;
+            background:
+                radial-gradient(circle at 14% 8%, rgba(191,207,228,0.03), transparent 24%),
+                radial-gradient(circle at 86% 16%, rgba(239,177,115,0.04), transparent 26%),
+                linear-gradient(180deg, #050609 0%, #071020 36%, #060d1b 72%, #050609 100%);
         }
 
         /* =========================================================
@@ -96,8 +99,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
             z-index: 100;
+            width: 100%;
             padding: 20px 5.5vw;
             display: flex;
             align-items: center;
@@ -125,8 +128,8 @@
         .nav a {
             font-size: 11px;
             font-weight: 400;
-            text-transform: uppercase;
             letter-spacing: 0.02em;
+            text-transform: uppercase;
             color: rgba(255,255,255,0.92);
             transition: color 0.25s ease;
         }
@@ -148,9 +151,9 @@
             position: absolute;
             top: 100%;
             left: 50%;
-            transform: translateX(-50%) translateY(10px);
             min-width: 190px;
             padding: 14px 0;
+            transform: translateX(-50%) translateY(10px);
             background: rgba(5,6,9,0.92);
             border: 1px solid rgba(239,177,115,0.28);
             border-radius: 18px;
@@ -167,8 +170,8 @@
             padding: 9px 18px;
             font-size: 10px;
             line-height: 1.2;
-            white-space: nowrap;
             text-align: left;
+            white-space: nowrap;
             color: rgba(255,255,255,0.82);
         }
 
@@ -187,11 +190,18 @@
         .search-button {
             width: 18px;
             height: 18px;
+            padding: 0;
             border: 0;
             background: transparent;
             color: white;
             cursor: pointer;
             opacity: 0.9;
+            transition: color 0.25s ease, opacity 0.25s ease;
+        }
+
+        .search-button:hover {
+            color: var(--sand-light);
+            opacity: 1;
         }
 
         .search-button svg {
@@ -200,59 +210,19 @@
         }
 
         /* =========================================================
-           FLOORPLAN PAGE
+           GLOBAL TITLES
         ========================================================= */
 
-        .floorplan-page {
-            position: relative;
-            min-height: 100vh;
-            padding: 145px 5.5vw 90px;
-            background:
-                radial-gradient(circle at 50% 0%, rgba(239,177,115,0.08), transparent 34%),
-                linear-gradient(180deg, #050609 0%, #071020 48%, #050609 100%);
-            overflow: hidden;
-        }
-
-        .floorplan-page::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background:
-                linear-gradient(90deg, rgba(5,6,9,0.68) 0%, rgba(5,6,9,0.04) 36%, rgba(5,6,9,0.04) 64%, rgba(5,6,9,0.68) 100%),
-                linear-gradient(180deg, rgba(5,6,9,0.42) 0%, rgba(5,6,9,0) 26%, rgba(5,6,9,0.44) 100%);
-            z-index: 1;
-        }
-
-        .floorplan-inner {
-            position: relative;
-            z-index: 2;
-            max-width: 1420px;
-            margin: 0 auto;
-        }
-
-        .floorplan-header {
-            max-width: 780px;
-            margin: 0 auto 54px;
-            text-align: center;
-        }
-
-        .floorplan-eyebrow {
-            margin-bottom: 16px;
-            font-size: 10px;
+        .large-title {
+            font-size: clamp(30px, 3.45vw, 56px);
+            line-height: 0.96;
             font-weight: 400;
-            letter-spacing: 0.16em;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            color: rgba(246,199,150,0.86);
         }
 
-        .floorplan-title {
-            margin-bottom: 20px;
-            font-size: clamp(38px, 5vw, 82px);
-            line-height: 0.92;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: -0.065em;
+        .large-title span {
+            display: block;
         }
 
         .accent-word {
@@ -270,35 +240,126 @@
             -webkit-background-clip: text;
             background-clip: text;
             animation: shimmerWord 7s ease-in-out infinite;
-            text-shadow:
-                0 0 16px rgba(203,107,55,0.12),
-                0 0 28px rgba(239,177,115,0.06);
         }
 
         @keyframes shimmerWord {
             0%, 100% {
                 background-position: 0% 50%;
-                filter: brightness(1);
             }
 
-            45% {
+            50% {
                 background-position: 100% 50%;
-                filter: brightness(1.18);
             }
+        }
 
-            65% {
-                background-position: 72% 50%;
-                filter: brightness(1.06);
-            }
+        /* =========================================================
+           FLOORPLAN PAGE
+        ========================================================= */
+
+        .floorplan-page {
+            width: 100%;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 14% 8%, rgba(191,207,228,0.03), transparent 24%),
+                radial-gradient(circle at 86% 16%, rgba(239,177,115,0.04), transparent 26%),
+                linear-gradient(180deg, #050609 0%, #071020 36%, #060d1b 72%, #050609 100%);
+        }
+
+        .floorplan-hero {
+            position: relative;
+            min-height: auto;
+            padding: max(145px, calc(50vh - 253px)) 5.5vw 78px;
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(circle at 78% 38%, rgba(239,177,115,0.09), transparent 30%),
+                radial-gradient(circle at 17% 24%, rgba(191,207,228,0.055), transparent 25%),
+                linear-gradient(180deg, rgba(5,6,9,0.98) 0%, rgba(7,15,34,0.95) 48%, rgba(6,13,27,0.98) 100%);
+        }
+
+        .floorplan-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, #050609 0%, rgba(5,6,9,0) 22%, rgba(5,6,9,0.10) 100%);
+        }
+
+        .floorplan-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.11;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+            mix-blend-mode: soft-light;
+        }
+
+        .floorplan-heading {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .floorplan-kicker {
+            margin-bottom: 15px;
+            font-size: 10px;
+            line-height: 1.2;
+            font-weight: 400;
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+            color: rgba(246,199,150,0.80);
+        }
+
+        .floorplan-heading .large-title {
+            margin-bottom: 22px;
         }
 
         .floorplan-intro {
             max-width: 610px;
             margin: 0 auto;
-            font-size: 17px;
-            line-height: 1.58;
+            font-size: 15px;
+            line-height: 1.65;
             font-weight: 300;
-            color: rgba(255,255,255,0.74);
+            color: rgba(255,255,255,0.66);
+        }
+
+        /* =========================================================
+           FLOORPLAN GALLERY
+        ========================================================= */
+
+        .floorplan-gallery-section {
+            position: relative;
+            padding: 0 5.5vw 120px;
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(circle at 84% 16%, rgba(191,207,228,0.025), transparent 18%),
+                linear-gradient(180deg, rgba(7,15,34,0.95) 0%, rgba(5,6,9,0.96) 100%);
+        }
+
+        .floorplan-gallery-section::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            height: 160px;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(7,15,34,0.95) 0%, rgba(5,6,9,0) 100%);
+        }
+
+        .floorplan-gallery-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1420px;
+            margin: 0 auto;
         }
 
         .floorplan-gallery {
@@ -323,8 +384,8 @@
             height: auto;
             min-height: 520px;
             object-fit: contain;
-            background: rgba(255,255,255,0.02);
             padding: 28px;
+            background: rgba(255,255,255,0.02);
             cursor: zoom-in;
             transition: transform 0.45s ease, filter 0.45s ease;
         }
@@ -415,15 +476,15 @@
 
         .footer {
             padding: 26px 5.5vw 34px;
-            border-top: 1px solid rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 26px;
-            color: rgba(255,255,255,0.50);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            background: rgba(5,6,9,0.96);
             font-size: 12px;
             font-weight: 300;
-            background: rgba(5,6,9,0.96);
+            color: rgba(255,255,255,0.50);
         }
 
         .footer-left {
@@ -450,10 +511,10 @@
         }
 
         /* =========================================================
-           RESPONSIVE
+           TABLET
         ========================================================= */
 
-        @media (max-width: 900px) {
+        @media (max-width: 1050px) {
             .header {
                 padding: 18px 28px;
             }
@@ -466,8 +527,15 @@
                 gap: 20px;
             }
 
-            .floorplan-page {
-                padding: 132px 28px 72px;
+            .floorplan-hero {
+                padding-left: 28px;
+                padding-right: 28px;
+            }
+
+            .floorplan-gallery-section {
+                padding-left: 28px;
+                padding-right: 28px;
+                padding-bottom: 96px;
             }
 
             .floorplan-item {
@@ -479,6 +547,10 @@
                 padding: 20px;
             }
         }
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
 
         @media (max-width: 760px) {
             .header {
@@ -493,20 +565,21 @@
                 display: none;
             }
 
-            .floorplan-page {
-                padding: 118px 18px 58px;
+            .floorplan-hero {
+                min-height: auto;
+                padding: 98px 24px 64px;
             }
 
-            .floorplan-header {
-                margin-bottom: 38px;
-            }
-
-            .floorplan-title {
-                font-size: 42px;
+            .large-title {
+                font-size: 34px;
             }
 
             .floorplan-intro {
-                font-size: 15px;
+                font-size: 14px;
+            }
+
+            .floorplan-gallery-section {
+                padding: 0 18px 72px;
             }
 
             .floorplan-gallery {
@@ -544,6 +617,15 @@
             .footer {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -588,45 +670,61 @@
 
         <main class="floorplan-page">
 
-            <div class="floorplan-inner">
+            <!-- HERO -->
+            <section class="floorplan-hero">
 
-                <section class="floorplan-header">
-                    <div class="floorplan-eyebrow">Studio Layout</div>
+                <div class="floorplan-heading">
 
-                    <h1 class="floorplan-title">
-                        Floor<span class="accent-word">plans.</span>
+                    <p class="floorplan-kicker">
+                        Studio Layout
+                    </p>
+
+                    <h1 class="large-title">
+                        <span>
+                            <em class="accent-word">Floorplans</em>
+                        </span>
                     </h1>
 
                     <p class="floorplan-intro">
                         A visual overview of the studio layout, including the recording areas, multimedia spaces and private production workflow.
                     </p>
-                </section>
 
-                <section class="floorplan-gallery" aria-label="Alacran Studios floorplan gallery">
+                </div>
 
-                    <article class="floorplan-item">
-                        <img src="imgs/floorplan-01.jpg" alt="Alacran Studios floorplan 01" class="js-zoomable">
-                        <span class="floorplan-caption">Floorplan 01</span>
-                    </article>
+            </section>
 
-                    <article class="floorplan-item">
-                        <img src="imgs/floorplan-02.jpg" alt="Alacran Studios floorplan 02" class="js-zoomable">
-                        <span class="floorplan-caption">Floorplan 02</span>
-                    </article>
+            <!-- FLOORPLAN GALLERY -->
+            <section class="floorplan-gallery-section">
 
-                    <article class="floorplan-item">
-                        <img src="imgs/floorplan-03.jpg" alt="Alacran Studios floorplan 03" class="js-zoomable">
-                        <span class="floorplan-caption">Floorplan 03</span>
-                    </article>
+                <div class="floorplan-gallery-inner">
 
-                    <article class="floorplan-item">
-                        <img src="imgs/floorplan-04.jpg" alt="Alacran Studios floorplan 04" class="js-zoomable">
-                        <span class="floorplan-caption">Floorplan 04</span>
-                    </article>
+                    <div class="floorplan-gallery" aria-label="Alacran Studios floorplan gallery">
 
-                </section>
+                        <article class="floorplan-item">
+                            <img src="imgs/floorplan-01.jpg" alt="Alacran Studios floorplan 01" class="js-zoomable">
+                            <span class="floorplan-caption">Floorplan 01</span>
+                        </article>
 
-            </div>
+                        <article class="floorplan-item">
+                            <img src="imgs/floorplan-02.jpg" alt="Alacran Studios floorplan 02" class="js-zoomable">
+                            <span class="floorplan-caption">Floorplan 02</span>
+                        </article>
+
+                        <article class="floorplan-item">
+                            <img src="imgs/floorplan-03.jpg" alt="Alacran Studios floorplan 03" class="js-zoomable">
+                            <span class="floorplan-caption">Floorplan 03</span>
+                        </article>
+
+                        <article class="floorplan-item">
+                            <img src="imgs/floorplan-04.jpg" alt="Alacran Studios floorplan 04" class="js-zoomable">
+                            <span class="floorplan-caption">Floorplan 04</span>
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </section>
 
         </main>
 
@@ -641,9 +739,13 @@
 
         <!-- FOOTER -->
         <footer class="footer">
+
             <div class="footer-left">
                 <img src="logos/icono-cobre.png" alt="Alacran icon">
-                <span>© 2026 Alacran Studios. All rights reserved.</span>
+
+                <span>
+                    © 2026 Alacran Studios. All rights reserved.
+                </span>
             </div>
 
             <div class="footer-links">
@@ -652,6 +754,7 @@
                 <a href="clients.html">Clients</a>
                 <a href="#">Miami Beach</a>
             </div>
+
         </footer>
 
     </div>
