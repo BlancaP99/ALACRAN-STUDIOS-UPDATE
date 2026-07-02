@@ -911,14 +911,14 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                filter: grayscale(0.26) contrast(1.05) brightness(0.88);
+                filter: grayscale(0) contrast(1.02) brightness(1) saturate(1);
             }
 
             .film-frame::after {
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.28)), radial-gradient(circle at 70% 78%, rgba(239,177,115,0.14), transparent 34%);
+                background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.10)), radial-gradient(circle at 70% 78%, rgba(239,177,115,0.08), transparent 34%);
             }
 
         .film-one {
@@ -994,8 +994,8 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                opacity: 0.72;
-                filter: grayscale(0.18) contrast(1.06) brightness(0.84) saturate(0.95);
+                opacity: 0.44;
+                filter: grayscale(0.50) contrast(1.08) brightness(0.62);
                 transform: scale(1.04);
             }
 
@@ -1003,7 +1003,7 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(circle at 50% 34%, rgba(239,177,115,0.10), transparent 34%), linear-gradient(90deg, rgba(5,6,9,0.62) 0%, rgba(5,6,9,0.36) 48%, rgba(5,6,9,0.62) 100%), linear-gradient(180deg, rgba(5,6,9,0.82) 0%, rgba(5,6,9,0.16) 48%, rgba(5,6,9,0.82) 100%);
+                background: radial-gradient(circle at 50% 34%, rgba(239,177,115,0.12), transparent 34%), linear-gradient(90deg, rgba(5,6,9,0.82) 0%, rgba(5,6,9,0.58) 48%, rgba(5,6,9,0.82) 100%), linear-gradient(180deg, #050609 0%, rgba(5,6,9,0.28) 48%, #050609 100%);
             }
 
         .contact-pattern {
@@ -1525,14 +1525,14 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                filter: saturate(0.74) brightness(0.62) contrast(1.04);
+                filter: saturate(1) brightness(0.98) contrast(1.02);
                 transform: scale(1.055);
                 transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.65s ease;
             }
 
             .room-card:hover img {
                 transform: scale(1.02);
-                filter: saturate(0.96) brightness(0.76) contrast(1.03);
+                filter: saturate(1.04) brightness(1.03) contrast(1.02);
             }
 
             .room-card::before {
@@ -1540,7 +1540,7 @@
                 position: absolute;
                 inset: 0;
                 z-index: 1;
-                background: linear-gradient(180deg, rgba(0,0,0,0.02) 14%, rgba(3,7,18,0.14) 42%, rgba(3,7,18,0.90) 100%);
+                background: linear-gradient(180deg, rgba(0,0,0,0.01) 14%, rgba(3,7,18,0.08) 42%, rgba(3,7,18,0.56) 100%);
                 pointer-events: none;
             }
 
@@ -1549,7 +1549,7 @@
                 position: absolute;
                 inset: 0;
                 z-index: 1;
-                background: radial-gradient(circle at 78% 18%, rgba(239,177,115,0.10), transparent 27%), linear-gradient(90deg, rgba(3,7,18,0.18), transparent 58%);
+                background: radial-gradient(circle at 78% 18%, rgba(239,177,115,0.06), transparent 27%), linear-gradient(90deg, rgba(3,7,18,0.08), transparent 58%);
             }
 
         .room-card-content {
